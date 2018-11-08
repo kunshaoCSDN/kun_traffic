@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="xsl.cms.mapper.TrafficFlowMapper" >
+    <resultMap id="itDevice" type="xsl.cms.pojo.ItDevice">
+        <result column="d_name" property="dName" jdbcType="VARCHAR" />
+        <result column="d_place" property="dPlace" jdbcType="VARCHAR" />
+        <result column="d_direct" property="dDirect" jdbcType="VARCHAR" />
+    </resultMap>
+    <resultMap id="trafficFlew" type="xsl.cms.pojo.TrafficFlew">
+        <result column="dr_time" property="drTime" jdbcType="TIMESTAMP" javaType="String" />
+        <result column="dr_way" property="drWay" jdbcType="VARCHAR" />
+        <result column="dr_carSign_area" property="drCarsignArea" jdbcType="VARCHAR" />
+        <result column="dr_carSign_num" property="drCarsignNum" jdbcType="VARCHAR" />
+        <result column="dr_car_type" property="drCarType" jdbcType="VARCHAR" />
+        <result column="dr_car_color" property="drCarColor" jdbcType="VARCHAR" />
+        <result column="dr_car_sign" property="drCarSign" jdbcType="VARCHAR" />
+        <result column="dr_isIllegal" property="drIsillegal" jdbcType="BIT" javaType="BOOLEAN"/>
+        <result column="dr_actual_speed" property="drActualSpeed" jdbcType="INTEGER" />
+        <result column="dr_limit_speed" property="drLimitSpeed" jdbcType="INTEGER" />
+        <association property="itDevice" resultMap="itDevice"/>
+    </resultMap>
+
+    <!--车流量记录的字段-->
+    <sql id="getTrafficLists">
+        select
+          dri.dr_time,
+          dri.dr_way,
+          dri.dr_carSign_area,
+          dri.dr_carSign_num,
+          dri.dr_car_type,
+          dri.dr_car_color,
+          dri.dr_car_sign,
+          dri.dr_isIllegal,
+          dri.dr_actual_speed,
+          dri.dr_limit_speed,
+          dev.d_name,
+          dev.d_place,
+          dev.d_direct
+        from
+          it_drivingrecords dri
+        left join it_device dev on dri.dr_did=dev.d_id
+    </sql>
+
+    <!--获取月车流量记录-->
+    <select id="getTrafficList" resultMap="trafficFlew">
+        <include refid="getTrafficLists"/>
+        <choose>
+            <when test=" toTime != null and toTime !='' ">
+                where date_format(dri.dr_time,'%Y-%m')=#{toTime}
+            </when>
+            <otherwise>
+                where date_format(dri.dr_time,'%Y-%m')=date_format(now(),'%Y-%m')
+            </otherwise>
+        </choose>
+    </select>
+
+    <!--获取日车流量记录-->
+    <select id="getDayTrafficList" resultMap="trafficFlew">
+        <include refid="getTrafficLists"/>
+        <choose>
+            <when test=" toDay != null and toDay !='' ">
+                where date_format(dri.dr_time,'%Y-%m-%d')=#{toDay}
+            </when>
+            <otherwise>
+                where date_format(dri.dr_time,'%Y-%m-%d')=date_format(now(),'%Y-%m-%d')
+            </otherwise>
+        </choose>
+    </select>
+
+    <!--获取时车流量记录-->
+    <select id="getHourTrafficList" resultMap="trafficFlew">
+        <include refid="getTrafficLists"/>
+        <choose>
+            <when test=" toHour != null and toHour !='' ">
+                where date_format(dri.dr_time,'%Y-%m-%d %h')=#{toHour}
+            </when>
+            <otherwise>
+                where date_format(dri.dr_time,'%Y-%m-%d %h')=date_format(now(),'%Y-%m-%d %h')
+            </otherwise>
+        </choose>
+    </select>
+
+    <!--某月的每日的车流量-->
+    <select id="getMonthMonitor" resultType="xsl.cms.pojo.common.KeyValueObject">
+         select
+              date_format(dri.dr_time,'%Y-%m-%d') as filed,
+              count(*) as mount
+         from it_drivingrecords as dri
+        <choose>
+            <when test=" toMonth != null and toMonth !='' ">
+                where date_format(dri.dr_time,'%Y-%m') = #{toMonth}
+            </when>
+            <otherwise>
+                where date_format(dri.dr_time,'%Y-%m')=date_format(now(),'%Y-%m')
+            </otherwise>
+        </choose>
+        group by filed
+    </select>
+
+    <!--某日的每小时的车流量-->
+    <select id="getDayMonitor" resultType="xsl.cms.pojo.common.KeyValueObject">
+        select
+        date_format(dri.dr_time,'%h') as filed,
+        count(*) as mount
+        from it_drivingrecords as dri
+        <choose>
+            <when test=" toDay != null and toDay !='' ">
+                where date_format(dri.dr_time,'%Y-%m-%d') = #{toDay}
+            </when>
+            <otherwise>
+                where date_format(dri.dr_time,'%Y-%m-%d')=date_format(now(),'%Y-%m-%d')
+            </otherwise>
+        </choose>
+        group by filed
+    </select>
+
+    <!--获取年历中的数据信息-->
+    <select id="getYearDates" resultType="xsl.cms.pojo.common.YearNode">
+        select
+            count(1) count,
+            (date_format(dri.dr_time,'%Y-%m-%d')) date
+        from it_drivingrecords dri
+        group by date
+    </select>
+</mapper>

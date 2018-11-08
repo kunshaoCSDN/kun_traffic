@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="xsl.cms.mapper.IRecordMapper" >
+    <resultMap id="itDevice" type="xsl.cms.pojo.ItDevice">
+        <result column="d_name" property="dName" jdbcType="VARCHAR" />
+        <result column="d_place" property="dPlace" jdbcType="VARCHAR" />
+        <result column="d_direct" property="dDirect" jdbcType="VARCHAR" />
+    </resultMap>
+    <resultMap id="itBlacklist" type="xsl.cms.pojo.ItBlacklist">
+        <id column="bl_id" property="blId" jdbcType="INTEGER"/>
+        <result column="bl_remark" property="blRemark" jdbcType="VARCHAR"/>
+        <result column="bl_publishUnit" property="blPublishunit" jdbcType="VARCHAR"/>
+        <result column="bl_phone" property="blPhone" jdbcType="VARCHAR"/>
+        <result column="bl_state" property="blState" jdbcType="VARCHAR"/>
+    </resultMap>
+    <resultMap id="trafficFlew" type="xsl.cms.pojo.TrafficFlew">
+        <result column="dr_time" property="drTime" jdbcType="TIMESTAMP" javaType="String" />
+        <result column="dr_way" property="drWay" jdbcType="VARCHAR" />
+        <result column="dr_carSign_area" property="drCarsignArea" jdbcType="VARCHAR" />
+        <result column="dr_carSign_num" property="drCarsignNum" jdbcType="VARCHAR" />
+        <result column="dr_car_type" property="drCarType" jdbcType="VARCHAR" />
+        <result column="dr_car_color" property="drCarColor" jdbcType="VARCHAR" />
+        <result column="dr_car_sign" property="drCarSign" jdbcType="VARCHAR" />
+        <result column="dr_isIllegal" property="drIsillegal" jdbcType="BIT" javaType="BOOLEAN"/>
+        <result column="dr_actual_speed" property="drActualSpeed" jdbcType="INTEGER" />
+        <result column="dr_limit_speed" property="drLimitSpeed" jdbcType="INTEGER" />
+        <association property="itDevice" resultMap="itDevice"/>
+        <association property="itBlacklist" resultMap="itBlacklist"/>
+    </resultMap>
+    <!--车流量记录的字段-->
+    <sql id="sqlName">
+        select
+          dri.dr_time,
+          dri.dr_way,
+          dri.dr_carSign_area,
+          dri.dr_carSign_num,
+          dri.dr_car_type,
+          dri.dr_car_color,
+          dri.dr_car_sign,
+          dri.dr_isIllegal,
+          dri.dr_actual_speed,
+          dri.dr_limit_speed,
+          dev.d_name,
+          dev.d_place,
+          dev.d_direct,
+          bla.bl_id,
+          bla.bl_remark,
+          bla.bl_publishUnit,
+          bla.bl_phone,
+          bla.bl_state
+        from
+          it_drivingrecords dri
+        left join it_device dev on dri.dr_did=dev.d_id
+        left join it_blacklist bla on dri.dr_alarm_code = bla.bl_id
+    </sql>
+
+    <select id="getRecords" resultMap="trafficFlew">
+        <include refid="sqlName"/>
+    </select>
+
+    <select id="getRecordAlarms" resultMap="trafficFlew">
+        <include refid="sqlName"/>
+        where bla.bl_id > 0
+    </select>
+
+    <select id="getAutoAnalysis" resultMap="trafficFlew" >
+         select
+          dri.dr_id,
+          dri.dr_time,
+          dri.dr_way,
+          dri.dr_carSign_area,
+          dri.dr_carSign_num,
+          dri.dr_imageUrl,
+          dev.d_place,
+          dev.d_direct,
+          bla.bl_name
+        from
+          it_drivingrecords dri
+        left join it_device dev on dri.dr_did=dev.d_id
+        left join it_blacklist bla on dri.dr_alarm_code = bla.bl_id
+        where bla.bl_id > 0
+        and  bla.bl_state = 1
+    </select>
+</mapper>

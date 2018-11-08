@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>IT-login</title>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="../static/bootstrap-3.3.7-dist/css/bootstrap.min.css"/>
+    <!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
+    <link rel="stylesheet" href="../static/bootstrap-3.3.7-dist/css/bootstrap-theme.min.css" />
+    <!--css样式-->
+    <style type="text/css">
+        span{
+            color: red;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+    <!--引入JQuery-->
+    <script src="../js/jquery.min.js"></script>
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="../static/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div>
+    <div id="myBody" class="col-md-12" style="margin: 13% 0px 0px 0px;height: 300px;background-image: url('../static/image/login0.jpg');text-align: center;color: whitesmoke;" >
+        <h1>智能交通管理系统</h1>
+        <form class="form-horizontal" action="/user/login" method="post" id="myForm" style="margin-left: 38%;margin-top: 3%">
+            <div class="form-group">
+                <label class="sr-only" for="Username">账号</label>
+                <div class="col-md-5">
+                   <input type="text " class="form-control input-lg" id="username" placeholder="Username">
+                </div>
+                <div class="col-md-1">
+                    <span id="userMsg">
+                    </span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="sr-only" for="Password">密码</label>
+                <div class="col-md-5">
+                    <input type="password" class="form-control input-lg" id="password" placeholder="Password">
+                </div>
+                <div class="col-md-1">
+                    <span id="passwdMsg">
+                    </span>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <button type="submit" class="btn btn-info btn-lg  btn-block" style="margin-left: 10%">登录</button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+    // 图片的轮播
+    //实时刷新时间单位为毫秒
+    var i = 0;
+    setInterval('refreshQuery()',5000);
+    /* 刷新查询 */
+    function refreshQuery() {
+        $("#myBody").css("background-image","url('../static/image/login"+ i++%6 +".jpg')");
+    }
+</script>

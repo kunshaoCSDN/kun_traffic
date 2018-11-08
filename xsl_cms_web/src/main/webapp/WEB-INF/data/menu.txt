@@ -1,0 +1,60 @@
+﻿/*菜单*/
+[
+	{
+	    "id": "1", iconCls: "fa fa-send-o", text: "交通流量模块", children: [
+	    { "id": "1_1", iconCls: "fa fa-angle-right", text: "交通流量月报表/柱", url: "trafficFlow/month/form" },
+        { "id": "1_2", iconCls: "fa fa-angle-right", text: "交通流量日报表/柱", url: "trafficFlow/day/form" },
+        { "id": "1_3", iconCls: "fa fa-angle-right", text: "交通流量时报表", url: "trafficFlow/hour/form" },
+        { "id": "1_4", iconCls: "fa fa-angle-right", text: "交通流量月曲线图", url: "trafficFlow/month/chart" },
+        { "id": "1_5", iconCls: "fa fa-angle-right", text: "交通流量曲线年历" ,url: "statisticalAnalysis/illegal/behaviour"}
+	    ]
+	},
+    {
+        "id": "2", iconCls: "fa fa-desktop", text: "视频监控模块", children: [
+        { "id": "2_1", iconCls: "fa fa-angle-right", text: "视频监控画面", url: "viewMonitor/video/monitor" },
+        { "id": "2_2", iconCls: "fa fa-angle-right", text: "录像路径配置", url: "viewMonitor/approve" },
+        { "id": "2_3", iconCls: "fa fa-angle-right", text: "录像查询播放", url: "viewMonitor/class" }
+        ]
+    },
+    {
+         "id": "3", iconCls: "fa fa-user-circle-o",  text: "稽查可控模块", children: [
+         { "id": "3_1", iconCls: "fa fa-angle-right", text: "监控车辆报警查询", url: "checkControlled/alarm/message" },
+         { "id": "3_2", iconCls: "fa fa-angle-right", text: "过往车辆信息查询", url: "checkControlled/vehicle/info" },
+         { "id": "3_3", iconCls: "fa fa-angle-right", text: "黑名单类型管理", url: "checkControlled/black/listType" },
+         { "id": "3_4", iconCls: "fa fa-angle-right", text: "自动对比分析", url: "checkControlled/auto/analysis" },
+         { "id": "3_5", iconCls: "fa fa-angle-right", text: "黑名单管理", url: "checkControlled/black/list" }
+         ]
+    },
+{
+          "id": "4", iconCls: "fa fa-share-alt", text: "违法处理模块", children: [
+          { "id": "4_1", iconCls: "fa fa-angle-right", text: "违法图片浏览", url: "illegalTreatment/illegal/img" },
+          { "id": "4_3", iconCls: "fa fa-angle-right", text: "违法事实审核", url: "illegalTreatment/illegal/approve" },
+          { "id": "4_4", iconCls: "fa fa-angle-right", text: "删除事实审核", url: "illegalTreatment/delete/approve" },
+          { "id": "4_5", iconCls: "fa fa-angle-right", text: "违法明细查询", url: "illegalTreatment/details/select" },
+          { "id": "4_6", iconCls: "fa fa-angle-right", text: "违法代码字典", url: "illegalTreatment/illegal/code" },
+          { "id": "4_7", iconCls: "fa fa-angle-right", text: "白名单管理", url: "illegalTreatment/white/list" }
+    ]
+},
+{
+        "id": "5", iconCls: "fa fa-area-chart", text: "统计分析模块", children: [
+        { "id": "5_1", iconCls: "fa fa-angle-right", text: "人员工作量统计", url: "statisticalAnalysis/work/person" },
+        { "id": "5_2", iconCls: "fa fa-angle-right", text: "违法行为统计" ,url: "statisticalAnalysis/illegal/behaviour"}
+        ]
+},
+ {
+         "id": "6", iconCls: "fa fa-table", text: "日志管理模块", children: [
+         { "id": "6_1", iconCls: "fa fa-angle-right", text: "Controller操作日志", url: "log/controller" },
+         { "id": "6_2", iconCls: "fa fa-angle-right", text: "Service异常日志", url: "log/service" },
+         /*{ "id": "6_3", iconCls: "fa fa-angle-right", text: "SQL日志", url: "log/SQL" },
+         { "id": "6_4", iconCls: "fa fa-angle-right", text: "程序运行日志", url: "log/program" }*/
+         ]
+ },
+{
+        "id": "7", iconCls: "fa fa-globe", text: "性能监控模块", children: [
+        { "id": "7_1", iconCls: "fa fa-angle-right", text: "Server运行状态监控", url: "monitor/performance/server" },
+        { "id": "7_2", iconCls: "fa fa-angle-right", text: "Redis访问监控", url: "monitor/performance/redis" },
+        { "id": "7_3", iconCls: "fa fa-angle-right", text: "内存消耗监控", url: "monitor/performance/memory" },
+        { "id": "7_4", iconCls: "fa fa-angle-right", text: "数据库访问监控", url: "monitor/performance/DB" }
+        ]
+}
+]

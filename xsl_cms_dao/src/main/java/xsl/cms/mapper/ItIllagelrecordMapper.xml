@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="xsl.cms.mapper.ItIllagelrecordMapper" >
+  <resultMap id="BaseResultMap" type="xsl.cms.pojo.ItIllagelrecord" >
+    <id column="ir_id" property="irId" jdbcType="INTEGER" />
+    <result column="ir_iid" property="irIid" jdbcType="INTEGER" />
+    <result column="ir_state" property="irState" jdbcType="BIT" />
+    <result column="ir_img" property="irImg" jdbcType="VARCHAR" />
+    <result column="ir_approveTime" property="irApprovetime" jdbcType="TIMESTAMP" />
+    <result column="ir_remark" property="irRemark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ir_id, ir_iid, ir_state, ir_img, ir_approveTime, ir_remark
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="xsl.cms.pojo.ItIllagelrecordExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from it_illagelrecord
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from it_illagelrecord
+    where ir_id = #{irId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from it_illagelrecord
+    where ir_id = #{irId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="xsl.cms.pojo.ItIllagelrecordExample" >
+    delete from it_illagelrecord
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="xsl.cms.pojo.ItIllagelrecord" >
+    insert into it_illagelrecord (ir_id, ir_iid, ir_state, 
+      ir_img, ir_approveTime, ir_remark
+      )
+    values (#{irId,jdbcType=INTEGER}, #{irIid,jdbcType=INTEGER}, #{irState,jdbcType=BIT}, 
+      #{irImg,jdbcType=VARCHAR}, #{irApprovetime,jdbcType=TIMESTAMP}, #{irRemark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="xsl.cms.pojo.ItIllagelrecord" >
+    insert into it_illagelrecord
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="irId != null" >
+        ir_id,
+      </if>
+      <if test="irIid != null" >
+        ir_iid,
+      </if>
+      <if test="irState != null" >
+        ir_state,
+      </if>
+      <if test="irImg != null" >
+        ir_img,
+      </if>
+      <if test="irApprovetime != null" >
+        ir_approveTime,
+      </if>
+      <if test="irRemark != null" >
+        ir_remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="irId != null" >
+        #{irId,jdbcType=INTEGER},
+      </if>
+      <if test="irIid != null" >
+        #{irIid,jdbcType=INTEGER},
+      </if>
+      <if test="irState != null" >
+        #{irState,jdbcType=BIT},
+      </if>
+      <if test="irImg != null" >
+        #{irImg,jdbcType=VARCHAR},
+      </if>
+      <if test="irApprovetime != null" >
+        #{irApprovetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="irRemark != null" >
+        #{irRemark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="xsl.cms.pojo.ItIllagelrecordExample" resultType="java.lang.Integer" >
+    select count(*) from it_illagelrecord
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update it_illagelrecord
+    <set >
+      <if test="record.irId != null" >
+        ir_id = #{record.irId,jdbcType=INTEGER},
+      </if>
+      <if test="record.irIid != null" >
+        ir_iid = #{record.irIid,jdbcType=INTEGER},
+      </if>
+      <if test="record.irState != null" >
+        ir_state = #{record.irState,jdbcType=BIT},
+      </if>
+      <if test="record.irImg != null" >
+        ir_img = #{record.irImg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.irApprovetime != null" >
+        ir_approveTime = #{record.irApprovetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.irRemark != null" >
+        ir_remark = #{record.irRemark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update it_illagelrecord
+    set ir_id = #{record.irId,jdbcType=INTEGER},
+      ir_iid = #{record.irIid,jdbcType=INTEGER},
+      ir_state = #{record.irState,jdbcType=BIT},
+      ir_img = #{record.irImg,jdbcType=VARCHAR},
+      ir_approveTime = #{record.irApprovetime,jdbcType=TIMESTAMP},
+      ir_remark = #{record.irRemark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="xsl.cms.pojo.ItIllagelrecord" >
+    update it_illagelrecord
+    <set >
+      <if test="irIid != null" >
+        ir_iid = #{irIid,jdbcType=INTEGER},
+      </if>
+      <if test="irState != null" >
+        ir_state = #{irState,jdbcType=BIT},
+      </if>
+      <if test="irImg != null" >
+        ir_img = #{irImg,jdbcType=VARCHAR},
+      </if>
+      <if test="irApprovetime != null" >
+        ir_approveTime = #{irApprovetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="irRemark != null" >
+        ir_remark = #{irRemark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ir_id = #{irId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="xsl.cms.pojo.ItIllagelrecord" >
+    update it_illagelrecord
+    set ir_iid = #{irIid,jdbcType=INTEGER},
+      ir_state = #{irState,jdbcType=BIT},
+      ir_img = #{irImg,jdbcType=VARCHAR},
+      ir_approveTime = #{irApprovetime,jdbcType=TIMESTAMP},
+      ir_remark = #{irRemark,jdbcType=VARCHAR}
+    where ir_id = #{irId,jdbcType=INTEGER}
+  </update>
+</mapper>

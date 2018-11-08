@@ -1,0 +1,502 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="xsl.cms.mapper.ItDrivingrecordsMapper" >
+  <resultMap id="BaseResultMap" type="xsl.cms.pojo.ItDrivingrecords" >
+    <id column="dr_id" property="drId" jdbcType="INTEGER" />
+    <result column="dr_did" property="drDid" jdbcType="INTEGER" />
+    <result column="dr_time" property="drTime" jdbcType="TIMESTAMP" />
+    <result column="dr_way" property="drWay" jdbcType="VARCHAR" />
+    <result column="dr_carSign_area" property="drCarsignArea" jdbcType="VARCHAR" />
+    <result column="dr_carSign_num" property="drCarsignNum" jdbcType="VARCHAR" />
+    <result column="dr_car_type" property="drCarType" jdbcType="VARCHAR" />
+    <result column="dr_car_color" property="drCarColor" jdbcType="VARCHAR" />
+    <result column="dr_car_sign" property="drCarSign" jdbcType="VARCHAR" />
+    <result column="dr_isIllegal" property="drIsillegal" jdbcType="BIT" />
+    <result column="dr_illegal_id" property="drIllegalId" jdbcType="INTEGER" />
+    <result column="dr_alarm_code" property="drAlarmCode" jdbcType="INTEGER" />
+    <result column="dr_actual_speed" property="drActualSpeed" jdbcType="INTEGER" />
+    <result column="dr_limit_speed" property="drLimitSpeed" jdbcType="INTEGER" />
+    <result column="dr_imageUrl" property="drImageurl" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="itDevice" type="xsl.cms.pojo.ItDevice" >
+    <id column="d_id" property="dId" jdbcType="INTEGER" />
+    <result column="d_name" property="dName" jdbcType="VARCHAR" />
+    <result column="d_place" property="dPlace" jdbcType="VARCHAR" />
+    <result column="d_direct" property="dDirect" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="illeagelRecord" type="xsl.cms.pojo.IlleagelRecord" >
+    <id column="dr_id" property="drId" jdbcType="INTEGER" />
+    <result column="dr_did" property="drDid" jdbcType="INTEGER" />
+    <result column="dr_time" property="drTime" jdbcType="TIMESTAMP" />
+    <result column="dr_way" property="drWay" jdbcType="VARCHAR" />
+    <result column="dr_carSign_area" property="drCarsignArea" jdbcType="VARCHAR" />
+    <result column="dr_carSign_num" property="drCarsignNum" jdbcType="VARCHAR" />
+    <result column="dr_car_type" property="drCarType" jdbcType="VARCHAR" />
+    <result column="dr_car_color" property="drCarColor" jdbcType="VARCHAR" />
+    <result column="dr_car_sign" property="drCarSign" jdbcType="VARCHAR" />
+    <result column="dr_isIllegal" property="drIsillegal" jdbcType="BIT" />
+    <result column="dr_illegal_id" property="drIllegalId" jdbcType="INTEGER" />
+    <result column="dr_alarm_code" property="drAlarmCode" jdbcType="INTEGER" />
+    <result column="dr_actual_speed" property="drActualSpeed" jdbcType="INTEGER" />
+    <result column="dr_limit_speed" property="drLimitSpeed" jdbcType="INTEGER" />
+    <result column="dr_imageUrl" property="drImageurl" jdbcType="VARCHAR" />
+    <association property="itIllagelcode" resultMap="itIllagelcode"/>
+    <association property="itIllagelrecord" resultMap="itIllagelrecord"/>
+    <association property="itDevice" resultMap="itDevice"/>
+  </resultMap>
+  <resultMap id="itIllagelcode" type="xsl.cms.pojo.ItIllagelcode" >
+    <id column="ic_id" property="icId" jdbcType="INTEGER" />
+    <result column="ic_behaviour" property="icBehaviour" jdbcType="VARCHAR" />
+    <result column="ic_fine" property="icFine" jdbcType="INTEGER" />
+    <result column="ic_score" property="icScore" jdbcType="INTEGER" />
+    <result column="ic_time" property="icTime" jdbcType="TIMESTAMP" javaType="String" />
+    <result column="ic_state" property="icState" jdbcType="BIT" />
+  </resultMap>
+  <resultMap id="itIllagelrecord" type="xsl.cms.pojo.ItIllagelrecord" >
+    <id column="ir_id" property="irId" jdbcType="INTEGER" />
+    <result column="ir_iid" property="irIid" jdbcType="INTEGER" />
+    <result column="ir_state" property="irState" jdbcType="BIT" />
+    <result column="ir_img" property="irImg" jdbcType="VARCHAR" />
+    <result column="ir_approveTime" property="irApprovetime" jdbcType="TIMESTAMP" />
+    <result column="ir_remark" property="irRemark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    dr_id, dr_did, dr_time, dr_way, dr_carSign_area, dr_carSign_num, dr_car_type, dr_car_color,
+    dr_car_sign, dr_isIllegal, dr_illegal_id, dr_alarm_code, dr_actual_speed, dr_limit_speed,
+    dr_imageUrl
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="xsl.cms.pojo.ItDrivingrecordsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from it_drivingrecords
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from it_drivingrecords
+    where dr_id = #{drId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from it_drivingrecords
+    where dr_id = #{drId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="xsl.cms.pojo.ItDrivingrecordsExample" >
+    delete from it_drivingrecords
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="xsl.cms.pojo.ItDrivingrecords" >
+    insert into it_drivingrecords (dr_id, dr_did, dr_time,
+      dr_way, dr_carSign_area, dr_carSign_num,
+      dr_car_type, dr_car_color, dr_car_sign,
+      dr_isIllegal, dr_illegal_id, dr_alarm_code,
+      dr_actual_speed, dr_limit_speed, dr_imageUrl
+      )
+    values (#{drId,jdbcType=INTEGER}, #{drDid,jdbcType=INTEGER}, #{drTime,jdbcType=TIMESTAMP},
+      #{drWay,jdbcType=VARCHAR}, #{drCarsignArea,jdbcType=VARCHAR}, #{drCarsignNum,jdbcType=VARCHAR},
+      #{drCarType,jdbcType=VARCHAR}, #{drCarColor,jdbcType=VARCHAR}, #{drCarSign,jdbcType=VARCHAR},
+      #{drIsillegal,jdbcType=BIT}, #{drIllegalId,jdbcType=INTEGER}, #{drAlarmCode,jdbcType=INTEGER},
+      #{drActualSpeed,jdbcType=INTEGER}, #{drLimitSpeed,jdbcType=INTEGER}, #{drImageurl,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="xsl.cms.pojo.ItDrivingrecords" >
+    insert into it_drivingrecords
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="drId != null" >
+        dr_id,
+      </if>
+      <if test="drDid != null" >
+        dr_did,
+      </if>
+      <if test="drTime != null" >
+        dr_time,
+      </if>
+      <if test="drWay != null" >
+        dr_way,
+      </if>
+      <if test="drCarsignArea != null" >
+        dr_carSign_area,
+      </if>
+      <if test="drCarsignNum != null" >
+        dr_carSign_num,
+      </if>
+      <if test="drCarType != null" >
+        dr_car_type,
+      </if>
+      <if test="drCarColor != null" >
+        dr_car_color,
+      </if>
+      <if test="drCarSign != null" >
+        dr_car_sign,
+      </if>
+      <if test="drIsillegal != null" >
+        dr_isIllegal,
+      </if>
+      <if test="drIllegalId != null" >
+        dr_illegal_id,
+      </if>
+      <if test="drAlarmCode != null" >
+        dr_alarm_code,
+      </if>
+      <if test="drActualSpeed != null" >
+        dr_actual_speed,
+      </if>
+      <if test="drLimitSpeed != null" >
+        dr_limit_speed,
+      </if>
+      <if test="drImageurl != null" >
+        dr_imageUrl,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="drId != null" >
+        #{drId,jdbcType=INTEGER},
+      </if>
+      <if test="drDid != null" >
+        #{drDid,jdbcType=INTEGER},
+      </if>
+      <if test="drTime != null" >
+        #{drTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="drWay != null" >
+        #{drWay,jdbcType=VARCHAR},
+      </if>
+      <if test="drCarsignArea != null" >
+        #{drCarsignArea,jdbcType=VARCHAR},
+      </if>
+      <if test="drCarsignNum != null" >
+        #{drCarsignNum,jdbcType=VARCHAR},
+      </if>
+      <if test="drCarType != null" >
+        #{drCarType,jdbcType=VARCHAR},
+      </if>
+      <if test="drCarColor != null" >
+        #{drCarColor,jdbcType=VARCHAR},
+      </if>
+      <if test="drCarSign != null" >
+        #{drCarSign,jdbcType=VARCHAR},
+      </if>
+      <if test="drIsillegal != null" >
+        #{drIsillegal,jdbcType=BIT},
+      </if>
+      <if test="drIllegalId != null" >
+        #{drIllegalId,jdbcType=INTEGER},
+      </if>
+      <if test="drAlarmCode != null" >
+        #{drAlarmCode,jdbcType=INTEGER},
+      </if>
+      <if test="drActualSpeed != null" >
+        #{drActualSpeed,jdbcType=INTEGER},
+      </if>
+      <if test="drLimitSpeed != null" >
+        #{drLimitSpeed,jdbcType=INTEGER},
+      </if>
+      <if test="drImageurl != null" >
+        #{drImageurl,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="xsl.cms.pojo.ItDrivingrecordsExample" resultType="java.lang.Integer" >
+    select count(*) from it_drivingrecords
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update it_drivingrecords
+    <set >
+      <if test="record.drId != null" >
+        dr_id = #{record.drId,jdbcType=INTEGER},
+      </if>
+      <if test="record.drDid != null" >
+        dr_did = #{record.drDid,jdbcType=INTEGER},
+      </if>
+      <if test="record.drTime != null" >
+        dr_time = #{record.drTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.drWay != null" >
+        dr_way = #{record.drWay,jdbcType=VARCHAR},
+      </if>
+      <if test="record.drCarsignArea != null" >
+        dr_carSign_area = #{record.drCarsignArea,jdbcType=VARCHAR},
+      </if>
+      <if test="record.drCarsignNum != null" >
+        dr_carSign_num = #{record.drCarsignNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.drCarType != null" >
+        dr_car_type = #{record.drCarType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.drCarColor != null" >
+        dr_car_color = #{record.drCarColor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.drCarSign != null" >
+        dr_car_sign = #{record.drCarSign,jdbcType=VARCHAR},
+      </if>
+      <if test="record.drIsillegal != null" >
+        dr_isIllegal = #{record.drIsillegal,jdbcType=BIT},
+      </if>
+      <if test="record.drIllegalId != null" >
+        dr_illegal_id = #{record.drIllegalId,jdbcType=INTEGER},
+      </if>
+      <if test="record.drAlarmCode != null" >
+        dr_alarm_code = #{record.drAlarmCode,jdbcType=INTEGER},
+      </if>
+      <if test="record.drActualSpeed != null" >
+        dr_actual_speed = #{record.drActualSpeed,jdbcType=INTEGER},
+      </if>
+      <if test="record.drLimitSpeed != null" >
+        dr_limit_speed = #{record.drLimitSpeed,jdbcType=INTEGER},
+      </if>
+      <if test="record.drImageurl != null" >
+        dr_imageUrl = #{record.drImageurl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update it_drivingrecords
+    set dr_id = #{record.drId,jdbcType=INTEGER},
+      dr_did = #{record.drDid,jdbcType=INTEGER},
+      dr_time = #{record.drTime,jdbcType=TIMESTAMP},
+      dr_way = #{record.drWay,jdbcType=VARCHAR},
+      dr_carSign_area = #{record.drCarsignArea,jdbcType=VARCHAR},
+      dr_carSign_num = #{record.drCarsignNum,jdbcType=VARCHAR},
+      dr_car_type = #{record.drCarType,jdbcType=VARCHAR},
+      dr_car_color = #{record.drCarColor,jdbcType=VARCHAR},
+      dr_car_sign = #{record.drCarSign,jdbcType=VARCHAR},
+      dr_isIllegal = #{record.drIsillegal,jdbcType=BIT},
+      dr_illegal_id = #{record.drIllegalId,jdbcType=INTEGER},
+      dr_alarm_code = #{record.drAlarmCode,jdbcType=INTEGER},
+      dr_actual_speed = #{record.drActualSpeed,jdbcType=INTEGER},
+      dr_limit_speed = #{record.drLimitSpeed,jdbcType=INTEGER},
+      dr_imageUrl = #{record.drImageurl,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="xsl.cms.pojo.ItDrivingrecords" >
+    update it_drivingrecords
+    <set >
+      <if test="drDid != null" >
+        dr_did = #{drDid,jdbcType=INTEGER},
+      </if>
+      <if test="drTime != null" >
+        dr_time = #{drTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="drWay != null" >
+        dr_way = #{drWay,jdbcType=VARCHAR},
+      </if>
+      <if test="drCarsignArea != null" >
+        dr_carSign_area = #{drCarsignArea,jdbcType=VARCHAR},
+      </if>
+      <if test="drCarsignNum != null" >
+        dr_carSign_num = #{drCarsignNum,jdbcType=VARCHAR},
+      </if>
+      <if test="drCarType != null" >
+        dr_car_type = #{drCarType,jdbcType=VARCHAR},
+      </if>
+      <if test="drCarColor != null" >
+        dr_car_color = #{drCarColor,jdbcType=VARCHAR},
+      </if>
+      <if test="drCarSign != null" >
+        dr_car_sign = #{drCarSign,jdbcType=VARCHAR},
+      </if>
+      <if test="drIsillegal != null" >
+        dr_isIllegal = #{drIsillegal,jdbcType=BIT},
+      </if>
+      <if test="drIllegalId != null" >
+        dr_illegal_id = #{drIllegalId,jdbcType=INTEGER},
+      </if>
+      <if test="drAlarmCode != null" >
+        dr_alarm_code = #{drAlarmCode,jdbcType=INTEGER},
+      </if>
+      <if test="drActualSpeed != null" >
+        dr_actual_speed = #{drActualSpeed,jdbcType=INTEGER},
+      </if>
+      <if test="drLimitSpeed != null" >
+        dr_limit_speed = #{drLimitSpeed,jdbcType=INTEGER},
+      </if>
+      <if test="drImageurl != null" >
+        dr_imageUrl = #{drImageurl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where dr_id = #{drId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="xsl.cms.pojo.ItDrivingrecords" >
+    update it_drivingrecords
+    set dr_did = #{drDid,jdbcType=INTEGER},
+      dr_time = #{drTime,jdbcType=TIMESTAMP},
+      dr_way = #{drWay,jdbcType=VARCHAR},
+      dr_carSign_area = #{drCarsignArea,jdbcType=VARCHAR},
+      dr_carSign_num = #{drCarsignNum,jdbcType=VARCHAR},
+      dr_car_type = #{drCarType,jdbcType=VARCHAR},
+      dr_car_color = #{drCarColor,jdbcType=VARCHAR},
+      dr_car_sign = #{drCarSign,jdbcType=VARCHAR},
+      dr_isIllegal = #{drIsillegal,jdbcType=BIT},
+      dr_illegal_id = #{drIllegalId,jdbcType=INTEGER},
+      dr_alarm_code = #{drAlarmCode,jdbcType=INTEGER},
+      dr_actual_speed = #{drActualSpeed,jdbcType=INTEGER},
+      dr_limit_speed = #{drLimitSpeed,jdbcType=INTEGER},
+      dr_imageUrl = #{drImageurl,jdbcType=VARCHAR}
+    where dr_id = #{drId,jdbcType=INTEGER}
+  </update>
+
+  <!--获取非法车辆的图片，处理之后的，还未交罚单的-->
+  <select id="getIlleagelImages" resultMap="illeagelRecord">
+        select
+              dri.dr_id,
+              dri.dr_time,
+              dri.dr_way,
+              dri.dr_carSign_area,
+              dri.dr_carSign_num,
+              dri.dr_isIllegal,
+              ill.ic_fine,
+              ill.ic_score,
+              cord.ir_img,
+              cord.ir_remark,
+              dev.d_place
+        from it_drivingrecords dri
+        LEFT JOIN it_device dev on dri.dr_did = dev.d_id
+        LEFT JOIN it_illagelrecord cord on dri.dr_illegal_id = cord.ir_id
+        LEFT JOIN it_illagelcode ill on cord.ir_iid = ill.ic_id
+        where dri.dr_isIllegal = 1
+        and cord.ir_state = 1
+  </select>
+
+  <!--获取非法车辆并且没有处理的记录-->
+  <select id="getIlleagelRecords" resultMap="illeagelRecord">
+        select
+              dri.dr_id,
+              dri.dr_time,
+              dri.dr_way,
+              dri.dr_carSign_area,
+              dri.dr_carSign_num,
+              dri.dr_isIllegal,
+              ill.ic_fine,
+              ill.ic_score,
+              cord.ir_img,
+              cord.ir_remark,
+              dev.d_place
+        from it_drivingrecords dri
+        LEFT JOIN it_device dev on dri.dr_did = dev.d_id
+        LEFT JOIN it_illagelrecord cord on dri.dr_illegal_id = cord.ir_id
+        LEFT JOIN it_illagelcode ill on cord.ir_iid = ill.ic_id
+        where dri.dr_isIllegal = 1
+        and cord.ir_state = 0
+  </select>
+
+  <!--获取非法车辆并且没有处理的记录都是删除-->
+  <select id="getDeleteIlleagelRecords" resultMap="illeagelRecord">
+        select
+              dri.dr_id,
+              dri.dr_time,
+              dri.dr_way,
+              dri.dr_carSign_area,
+              dri.dr_carSign_num,
+              dri.dr_isIllegal,
+              ill.ic_fine,
+              ill.ic_score,
+              cord.ir_img,
+              cord.ir_remark,
+              dev.d_place
+        from it_drivingrecords dri
+        LEFT JOIN it_device dev on dri.dr_did = dev.d_id
+        LEFT JOIN it_illagelrecord cord on dri.dr_illegal_id = cord.ir_id
+        LEFT JOIN it_illagelcode ill on cord.ir_iid = ill.ic_id
+        where dri.dr_isIllegal = 0
+        and cord.ir_state = 0
+  </select>
+
+  <!--所有的违法车辆-->
+  <select id="getAllIlleagelRecords" resultMap="illeagelRecord">
+        select
+              dri.dr_id,
+              dri.dr_time,
+              dri.dr_way,
+              dri.dr_carSign_area,
+              dri.dr_carSign_num,
+              dri.dr_isIllegal,
+              dri.dr_actual_speed,
+              dri.dr_limit_speed,
+              ill.ic_fine,
+              ill.ic_score,
+              cord.ir_img,
+              cord.ir_remark,
+              dev.d_place
+        from it_drivingrecords dri
+        LEFT JOIN it_device dev on dri.dr_did = dev.d_id
+        LEFT JOIN it_illagelrecord cord on dri.dr_illegal_id = cord.ir_id
+        LEFT JOIN it_illagelcode ill on cord.ir_iid = ill.ic_id
+        where dri.dr_isIllegal = 1
+  </select>
+</mapper>

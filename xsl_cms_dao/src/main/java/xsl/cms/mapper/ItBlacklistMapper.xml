@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="xsl.cms.mapper.ItBlacklistMapper" >
+  <resultMap id="BaseResultMap" type="xsl.cms.pojo.ItBlacklist" >
+    <id column="bl_id" property="blId" jdbcType="INTEGER" />
+    <result column="bl_bid" property="blBid" jdbcType="INTEGER" />
+    <result column="bl_name" property="blName" jdbcType="VARCHAR" />
+    <result column="bl_state" property="blState" jdbcType="BIT" />
+    <result column="bl_remark" property="blRemark" jdbcType="VARCHAR" />
+    <result column="bl_publishUnit" property="blPublishunit" jdbcType="VARCHAR" />
+    <result column="bl_phone" property="blPhone" jdbcType="VARCHAR" />
+    <result column="bl_updateTime" property="blUpdatetime" jdbcType="TIMESTAMP" javaType="String" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    bl_id, bl_bid, bl_name, bl_state, bl_remark, bl_publishUnit, bl_phone, bl_updateTime
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="xsl.cms.pojo.ItBlacklistExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from it_blacklist
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from it_blacklist
+    where bl_id = #{blId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from it_blacklist
+    where bl_id = #{blId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="xsl.cms.pojo.ItBlacklistExample" >
+    delete from it_blacklist
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="xsl.cms.pojo.ItBlacklist" >
+    insert into it_blacklist (bl_id, bl_bid, bl_name, 
+      bl_state, bl_remark, bl_publishUnit, 
+      bl_phone, bl_updateTime)
+    values (#{blId,jdbcType=INTEGER}, #{blBid,jdbcType=INTEGER}, #{blName,jdbcType=VARCHAR}, 
+      #{blState,jdbcType=BIT}, #{blRemark,jdbcType=VARCHAR}, #{blPublishunit,jdbcType=VARCHAR}, 
+      #{blPhone,jdbcType=VARCHAR}, #{blUpdatetime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="xsl.cms.pojo.ItBlacklist" >
+    insert into it_blacklist
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="blId != null" >
+        bl_id,
+      </if>
+      <if test="blBid != null" >
+        bl_bid,
+      </if>
+      <if test="blName != null" >
+        bl_name,
+      </if>
+      <if test="blState != null" >
+        bl_state,
+      </if>
+      <if test="blRemark != null" >
+        bl_remark,
+      </if>
+      <if test="blPublishunit != null" >
+        bl_publishUnit,
+      </if>
+      <if test="blPhone != null" >
+        bl_phone,
+      </if>
+      <if test="blUpdatetime != null" >
+        bl_updateTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="blId != null" >
+        #{blId,jdbcType=INTEGER},
+      </if>
+      <if test="blBid != null" >
+        #{blBid,jdbcType=INTEGER},
+      </if>
+      <if test="blName != null" >
+        #{blName,jdbcType=VARCHAR},
+      </if>
+      <if test="blState != null" >
+        #{blState,jdbcType=BIT},
+      </if>
+      <if test="blRemark != null" >
+        #{blRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="blPublishunit != null" >
+        #{blPublishunit,jdbcType=VARCHAR},
+      </if>
+      <if test="blPhone != null" >
+        #{blPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="blUpdatetime != null" >
+        #{blUpdatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="xsl.cms.pojo.ItBlacklistExample" resultType="java.lang.Integer" >
+    select count(*) from it_blacklist
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update it_blacklist
+    <set >
+      <if test="record.blId != null" >
+        bl_id = #{record.blId,jdbcType=INTEGER},
+      </if>
+      <if test="record.blBid != null" >
+        bl_bid = #{record.blBid,jdbcType=INTEGER},
+      </if>
+      <if test="record.blName != null" >
+        bl_name = #{record.blName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.blState != null" >
+        bl_state = #{record.blState,jdbcType=BIT},
+      </if>
+      <if test="record.blRemark != null" >
+        bl_remark = #{record.blRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.blPublishunit != null" >
+        bl_publishUnit = #{record.blPublishunit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.blPhone != null" >
+        bl_phone = #{record.blPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.blUpdatetime != null" >
+        bl_updateTime = #{record.blUpdatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update it_blacklist
+    set bl_id = #{record.blId,jdbcType=INTEGER},
+      bl_bid = #{record.blBid,jdbcType=INTEGER},
+      bl_name = #{record.blName,jdbcType=VARCHAR},
+      bl_state = #{record.blState,jdbcType=BIT},
+      bl_remark = #{record.blRemark,jdbcType=VARCHAR},
+      bl_publishUnit = #{record.blPublishunit,jdbcType=VARCHAR},
+      bl_phone = #{record.blPhone,jdbcType=VARCHAR},
+      bl_updateTime = #{record.blUpdatetime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="xsl.cms.pojo.ItBlacklist" >
+    update it_blacklist
+    <set >
+      <if test="blBid != null" >
+        bl_bid = #{blBid,jdbcType=INTEGER},
+      </if>
+      <if test="blName != null" >
+        bl_name = #{blName,jdbcType=VARCHAR},
+      </if>
+      <if test="blState != null" >
+        bl_state = #{blState,jdbcType=BIT},
+      </if>
+      <if test="blRemark != null" >
+        bl_remark = #{blRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="blPublishunit != null" >
+        bl_publishUnit = #{blPublishunit,jdbcType=VARCHAR},
+      </if>
+      <if test="blPhone != null" >
+        bl_phone = #{blPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="blUpdatetime != null" >
+        bl_updateTime = #{blUpdatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where bl_id = #{blId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="xsl.cms.pojo.ItBlacklist" >
+    update it_blacklist
+    set bl_bid = #{blBid,jdbcType=INTEGER},
+      bl_name = #{blName,jdbcType=VARCHAR},
+      bl_state = #{blState,jdbcType=BIT},
+      bl_remark = #{blRemark,jdbcType=VARCHAR},
+      bl_publishUnit = #{blPublishunit,jdbcType=VARCHAR},
+      bl_phone = #{blPhone,jdbcType=VARCHAR},
+      bl_updateTime = #{blUpdatetime,jdbcType=TIMESTAMP}
+    where bl_id = #{blId,jdbcType=INTEGER}
+  </update>
+</mapper>

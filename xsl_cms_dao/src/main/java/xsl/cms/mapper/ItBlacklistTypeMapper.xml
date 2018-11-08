@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="xsl.cms.mapper.ItBlacklistTypeMapper" >
+  <resultMap id="BaseResultMap" type="xsl.cms.pojo.ItBlacklistType" >
+    <id column="bt_id" property="btId" jdbcType="INTEGER" />
+    <result column="bt_name" property="btName" jdbcType="VARCHAR" />
+    <result column="bt_level" property="btLevel" jdbcType="BIT" />
+    <result column="bt_remark" property="btRemark" jdbcType="VARCHAR" />
+    <result column="bt_state" property="btState" jdbcType="BIT" />
+    <result column="bt_useCount" property="btUsecount" jdbcType="BIGINT" />
+    <result column="bt_updateTime" property="btUpdatetime" jdbcType="TIMESTAMP" javaType="String" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    bt_id, bt_name, bt_level, bt_remark, bt_state, bt_useCount, bt_updateTime
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="xsl.cms.pojo.ItBlacklistTypeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from it_blacklist_type
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from it_blacklist_type
+    where bt_id = #{btId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from it_blacklist_type
+    where bt_id = #{btId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="xsl.cms.pojo.ItBlacklistTypeExample" >
+    delete from it_blacklist_type
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="xsl.cms.pojo.ItBlacklistType" >
+    insert into it_blacklist_type (bt_id, bt_name, bt_level, 
+      bt_remark, bt_state, bt_useCount, 
+      bt_updateTime)
+    values (#{btId,jdbcType=INTEGER}, #{btName,jdbcType=VARCHAR}, #{btLevel,jdbcType=BIT}, 
+      #{btRemark,jdbcType=VARCHAR}, #{btState,jdbcType=BIT}, #{btUsecount,jdbcType=BIGINT}, 
+      #{btUpdatetime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="xsl.cms.pojo.ItBlacklistType" >
+    insert into it_blacklist_type
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="btId != null" >
+        bt_id,
+      </if>
+      <if test="btName != null" >
+        bt_name,
+      </if>
+      <if test="btLevel != null" >
+        bt_level,
+      </if>
+      <if test="btRemark != null" >
+        bt_remark,
+      </if>
+      <if test="btState != null" >
+        bt_state,
+      </if>
+      <if test="btUsecount != null" >
+        bt_useCount,
+      </if>
+      <if test="btUpdatetime != null" >
+        bt_updateTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="btId != null" >
+        #{btId,jdbcType=INTEGER},
+      </if>
+      <if test="btName != null" >
+        #{btName,jdbcType=VARCHAR},
+      </if>
+      <if test="btLevel != null" >
+        #{btLevel,jdbcType=BIT},
+      </if>
+      <if test="btRemark != null" >
+        #{btRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="btState != null" >
+        #{btState,jdbcType=BIT},
+      </if>
+      <if test="btUsecount != null" >
+        #{btUsecount,jdbcType=BIGINT},
+      </if>
+      <if test="btUpdatetime != null" >
+        #{btUpdatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="xsl.cms.pojo.ItBlacklistTypeExample" resultType="java.lang.Integer" >
+    select count(*) from it_blacklist_type
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update it_blacklist_type
+    <set >
+      <if test="record.btId != null" >
+        bt_id = #{record.btId,jdbcType=INTEGER},
+      </if>
+      <if test="record.btName != null" >
+        bt_name = #{record.btName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.btLevel != null" >
+        bt_level = #{record.btLevel,jdbcType=BIT},
+      </if>
+      <if test="record.btRemark != null" >
+        bt_remark = #{record.btRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.btState != null" >
+        bt_state = #{record.btState,jdbcType=BIT},
+      </if>
+      <if test="record.btUsecount != null" >
+        bt_useCount = #{record.btUsecount,jdbcType=BIGINT},
+      </if>
+      <if test="record.btUpdatetime != null" >
+        bt_updateTime = #{record.btUpdatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update it_blacklist_type
+    set bt_id = #{record.btId,jdbcType=INTEGER},
+      bt_name = #{record.btName,jdbcType=VARCHAR},
+      bt_level = #{record.btLevel,jdbcType=BIT},
+      bt_remark = #{record.btRemark,jdbcType=VARCHAR},
+      bt_state = #{record.btState,jdbcType=BIT},
+      bt_useCount = #{record.btUsecount,jdbcType=BIGINT},
+      bt_updateTime = #{record.btUpdatetime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="xsl.cms.pojo.ItBlacklistType" >
+    update it_blacklist_type
+    <set >
+      <if test="btName != null" >
+        bt_name = #{btName,jdbcType=VARCHAR},
+      </if>
+      <if test="btLevel != null" >
+        bt_level = #{btLevel,jdbcType=BIT},
+      </if>
+      <if test="btRemark != null" >
+        bt_remark = #{btRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="btState != null" >
+        bt_state = #{btState,jdbcType=BIT},
+      </if>
+      <if test="btUsecount != null" >
+        bt_useCount = #{btUsecount,jdbcType=BIGINT},
+      </if>
+      <if test="btUpdatetime != null" >
+        bt_updateTime = #{btUpdatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where bt_id = #{btId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="xsl.cms.pojo.ItBlacklistType" >
+    update it_blacklist_type
+    set bt_name = #{btName,jdbcType=VARCHAR},
+      bt_level = #{btLevel,jdbcType=BIT},
+      bt_remark = #{btRemark,jdbcType=VARCHAR},
+      bt_state = #{btState,jdbcType=BIT},
+      bt_useCount = #{btUsecount,jdbcType=BIGINT},
+      bt_updateTime = #{btUpdatetime,jdbcType=TIMESTAMP}
+    where bt_id = #{btId,jdbcType=INTEGER}
+  </update>
+</mapper>

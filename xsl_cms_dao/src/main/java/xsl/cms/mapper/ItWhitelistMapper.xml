@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="xsl.cms.mapper.ItWhitelistMapper" >
+  <resultMap id="BaseResultMap" type="xsl.cms.pojo.ItWhitelist" >
+    <id column="wl_id" property="wlId" jdbcType="INTEGER" />
+    <result column="wl_carSign_area" property="wlCarsignArea" jdbcType="VARCHAR" />
+    <result column="wl_carSign_num" property="wlCarsignNum" jdbcType="VARCHAR" />
+    <result column="wl_approveUnit" property="wlApproveunit" jdbcType="BIT" />
+    <result column="wl_approvePosi" property="wlApproveposi" jdbcType="VARCHAR" />
+    <result column="wl_state" property="wlState" jdbcType="BIT" />
+    <result column="wl_time" property="wlTime" jdbcType="TIMESTAMP" javaType="String" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    wl_id, wl_carSign_area, wl_carSign_num, wl_approveUnit, wl_approvePosi, wl_state, 
+    wl_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="xsl.cms.pojo.ItWhitelistExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from it_whitelist
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from it_whitelist
+    where wl_id = #{wlId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from it_whitelist
+    where wl_id = #{wlId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="xsl.cms.pojo.ItWhitelistExample" >
+    delete from it_whitelist
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="xsl.cms.pojo.ItWhitelist" >
+    insert into it_whitelist (wl_id, wl_carSign_area, wl_carSign_num, 
+      wl_approveUnit, wl_approvePosi, wl_state, 
+      wl_time)
+    values (#{wlId,jdbcType=INTEGER}, #{wlCarsignArea,jdbcType=VARCHAR}, #{wlCarsignNum,jdbcType=VARCHAR}, 
+      #{wlApproveunit,jdbcType=BIT}, #{wlApproveposi,jdbcType=VARCHAR}, #{wlState,jdbcType=BIT}, 
+      #{wlTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="xsl.cms.pojo.ItWhitelist" >
+    insert into it_whitelist
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="wlId != null" >
+        wl_id,
+      </if>
+      <if test="wlCarsignArea != null" >
+        wl_carSign_area,
+      </if>
+      <if test="wlCarsignNum != null" >
+        wl_carSign_num,
+      </if>
+      <if test="wlApproveunit != null" >
+        wl_approveUnit,
+      </if>
+      <if test="wlApproveposi != null" >
+        wl_approvePosi,
+      </if>
+      <if test="wlState != null" >
+        wl_state,
+      </if>
+      <if test="wlTime != null" >
+        wl_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="wlId != null" >
+        #{wlId,jdbcType=INTEGER},
+      </if>
+      <if test="wlCarsignArea != null" >
+        #{wlCarsignArea,jdbcType=VARCHAR},
+      </if>
+      <if test="wlCarsignNum != null" >
+        #{wlCarsignNum,jdbcType=VARCHAR},
+      </if>
+      <if test="wlApproveunit != null" >
+        #{wlApproveunit,jdbcType=BIT},
+      </if>
+      <if test="wlApproveposi != null" >
+        #{wlApproveposi,jdbcType=VARCHAR},
+      </if>
+      <if test="wlState != null" >
+        #{wlState,jdbcType=BIT},
+      </if>
+      <if test="wlTime != null" >
+        #{wlTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="xsl.cms.pojo.ItWhitelistExample" resultType="java.lang.Integer" >
+    select count(*) from it_whitelist
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update it_whitelist
+    <set >
+      <if test="record.wlId != null" >
+        wl_id = #{record.wlId,jdbcType=INTEGER},
+      </if>
+      <if test="record.wlCarsignArea != null" >
+        wl_carSign_area = #{record.wlCarsignArea,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wlCarsignNum != null" >
+        wl_carSign_num = #{record.wlCarsignNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wlApproveunit != null" >
+        wl_approveUnit = #{record.wlApproveunit,jdbcType=BIT},
+      </if>
+      <if test="record.wlApproveposi != null" >
+        wl_approvePosi = #{record.wlApproveposi,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wlState != null" >
+        wl_state = #{record.wlState,jdbcType=BIT},
+      </if>
+      <if test="record.wlTime != null" >
+        wl_time = #{record.wlTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update it_whitelist
+    set wl_id = #{record.wlId,jdbcType=INTEGER},
+      wl_carSign_area = #{record.wlCarsignArea,jdbcType=VARCHAR},
+      wl_carSign_num = #{record.wlCarsignNum,jdbcType=VARCHAR},
+      wl_approveUnit = #{record.wlApproveunit,jdbcType=BIT},
+      wl_approvePosi = #{record.wlApproveposi,jdbcType=VARCHAR},
+      wl_state = #{record.wlState,jdbcType=BIT},
+      wl_time = #{record.wlTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="xsl.cms.pojo.ItWhitelist" >
+    update it_whitelist
+    <set >
+      <if test="wlCarsignArea != null" >
+        wl_carSign_area = #{wlCarsignArea,jdbcType=VARCHAR},
+      </if>
+      <if test="wlCarsignNum != null" >
+        wl_carSign_num = #{wlCarsignNum,jdbcType=VARCHAR},
+      </if>
+      <if test="wlApproveunit != null" >
+        wl_approveUnit = #{wlApproveunit,jdbcType=BIT},
+      </if>
+      <if test="wlApproveposi != null" >
+        wl_approvePosi = #{wlApproveposi,jdbcType=VARCHAR},
+      </if>
+      <if test="wlState != null" >
+        wl_state = #{wlState,jdbcType=BIT},
+      </if>
+      <if test="wlTime != null" >
+        wl_time = #{wlTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where wl_id = #{wlId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="xsl.cms.pojo.ItWhitelist" >
+    update it_whitelist
+    set wl_carSign_area = #{wlCarsignArea,jdbcType=VARCHAR},
+      wl_carSign_num = #{wlCarsignNum,jdbcType=VARCHAR},
+      wl_approveUnit = #{wlApproveunit,jdbcType=BIT},
+      wl_approvePosi = #{wlApproveposi,jdbcType=VARCHAR},
+      wl_state = #{wlState,jdbcType=BIT},
+      wl_time = #{wlTime,jdbcType=TIMESTAMP}
+    where wl_id = #{wlId,jdbcType=INTEGER}
+  </update>
+</mapper>
